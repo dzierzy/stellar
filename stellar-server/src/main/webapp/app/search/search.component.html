@@ -1,0 +1,31 @@
+<div id="search">
+		<span>Search</span>
+		<div class="controls">
+			<form class="searchform" [formGroup]="searchForm" role="search" method="get" action=".">
+				<div class="surname">					
+					<div class="search-container">					
+						<input formControlName="name" id="searchText" autofocus type="search" class="search-input" name="name" value="search" onfocus="if (this.value == 'search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'search';}" (keyup.enter)="search()">
+						<button type="button" role="button" value="" class="search-submit" name="submit" title="Search" (click)="search()"></button>			 	
+					</div>
+				</div>
+			</form>
+		</div>      
+</div>
+
+	<div id="dbs" *ngIf="dbs.items && dbs.items.length > 0">
+		<span>Constellations</span>
+		<ul>
+			<li *ngFor="let db of dbs.items; let i=index" [class.selected]="i === selectedRow" class="db" (click)='changeDb($event, db.abbreviation, i)'>
+				<span><img src="./img/down.png"/></span><span title="{{db.name}}">{{db.name}}</span><span>&nbsp;({{db.abbreviation}})</span>
+			</li>
+		</ul>
+	</div>
+	<div id="data" *ngIf="selected">
+		<span>Stars</span>
+		<ul>
+			<li *ngFor="let row of selected" class="db">
+				<span><img src="./img/down.png"/></span><span>{{row.name}}</span>
+			</li>
+		</ul>
+	</div>
+

@@ -1,0 +1,93 @@
+import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Http, Response } from '@angular/http';
+
+
+
+//import { Hero }                from './hero';
+//import { HeroService }         from './hero.service';
+
+@Component({
+  moduleId: module.id,
+  selector: 'my-content',
+  templateUrl: 'search.component.html'
+})
+export class SearchComponent implements OnInit {
+  
+  searchForm = new FormGroup({
+    surname: new FormControl(),
+    sType: new FormControl(),
+    area: new FormControl()    
+  });
+  http: Http;
+  dbs = [];
+  selected;
+   
+  constructor(private formBuilder: FormBuilder, private http: Http) {}
+
+  ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      surname: '',
+      sType: '',
+      area: ''       
+    });
+  }
+   
+  search() {
+		console.log("searching...");
+        var apiLink = "http://realis.pro/jcc/app/restservice/search.json";
+
+		console.log("connecting to " + apiLink);
+		
+		this.dbs = [
+  {
+      "name": "Krakow: Mariages",
+      "count": "4",
+	  "data": {
+		  "columns": ["Surname", "First Name", "Year", "City"],
+		  "data":	[
+			["Surname1", "First Name1", "Year1", "City1"],
+			["Surname2", "First Name2", "Year2", "City2"],
+			["Surname3", "First Name3", "Year3", "City3"],
+			["Surname4", "First Name4", "Year4", "City4"]
+		  ]
+	  }
+  },
+  {
+      "name": "Belgium: Deaths of Jews from Poland",
+      "count": "122",
+	  "data": {
+		  "columns": ["Surname", "First Name", "City"],
+		  "data":	[
+			["Surname1", "First Name1", "City1"],
+			["Surname2", "First Name2", "City2"],
+			["Surname3", "First Name3", "City3"],
+			["Surname4", "First Name4", "City4"]
+		  ]
+	  }
+  }  
+];
+
+		this.selected = this.dbs[1].data;
+		
+		
+
+
+		
+        /*this.http.request("http://realis.pro/jcc/app/restservice/search.json")
+            .subscribe(res => {				
+                  this.dbs = res.json();
+                  console.log(this.dbs);
+            });*/
+		console.log("search finished.");
+	}
+  
+}
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

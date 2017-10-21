@@ -43,7 +43,7 @@ public class Config {
 
     private int port = 8080;
 
-    private String context = "/sky-map/webapi";
+    private String context = "/stellar/webapi";
 
     private String contentType = "application/json";
 

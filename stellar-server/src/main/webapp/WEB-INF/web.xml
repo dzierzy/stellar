@@ -3,8 +3,18 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <display-name>Sky Map</display-name>
-    <description>Sky Map - REST with Java training</description>
+    <display-name>Stellar</display-name>
+    <description>Stellar - REST with Java training</description>
+
+    <servlet>
+        <servlet-name>StellarController</servlet-name>
+        <servlet-class>pl.com.sages.stellar.controller.StellarController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StellarController</servlet-name>
+        <url-pattern>/servlet</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>javax.ws.rs.core.Application</servlet-name>

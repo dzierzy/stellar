@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<script>document.write('<base href="' + document.location + '" />');</script>
+    
+	  <!-- Polyfill(s) for older browsers -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+
+    <script src="https://unpkg.com/zone.js@0.6.25?main=browser"></script>
+    <script src="https://unpkg.com/reflect-metadata@0.1.3"></script>
+    <script src="https://unpkg.com/systemjs@0.19.27/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet"> 
+	<title>Stellar catalogue</title>
+	<link type="text/css" rel="stylesheet" href="css/style.css?v=1"/>
+</head>
+<body>
+	<div>
+  
+  
+	<my-app>
+	<div id="loading">
+	<img src="./img/moon.png"/>
+	Loading...
+	</div>
+	</my-app>
+  
+  
+	</div>
+	 
+</body>
+</html>
