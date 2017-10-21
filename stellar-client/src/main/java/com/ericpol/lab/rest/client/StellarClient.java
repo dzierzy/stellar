@@ -24,10 +24,8 @@ public class StellarClient {
         Config config = new Config();
         logger.info("configured to work with taget " + config.toURL(""));
 
-        Page list = ClientBuilder.newClient().register(new Authenticator(config.getUser(), config.getPassword()))
-                .target(config.toURL("/constellations")).queryParam("pageNo", pageNo).queryParam("pageSize", pageCount ).request(config.getAccept()).get(Page.class);
 
-        return list;
+        return null;
     }
 
     // TODO connect via JAX-RS client to logo service and upload new logo png file
@@ -35,11 +33,7 @@ public class StellarClient {
 
         Config config = new Config();
 
-        GenericEntity entity = RestEasyUtils.multipartEntity(filePath);
-
-        Object result = ClientBuilder.newClient()
-                .target(config.toURL("/logo")).request().post( Entity.entity(entity, MediaType.MULTIPART_FORM_DATA_TYPE));
-        return result;
+        return null;
     }
 
 
