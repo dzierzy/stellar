@@ -16,7 +16,7 @@ import java.util.List;
 @Alternative
 public class JPAStellarDAO implements StellarDAO {
 
-    @PersistenceContext(unitName = "stars")
+    //@PersistenceContext(unitName = "stars")
     private EntityManager em;
 
 

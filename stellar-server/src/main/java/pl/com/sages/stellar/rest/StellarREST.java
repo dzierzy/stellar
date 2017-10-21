@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
+@Path("/constellations")
+@Produces(MediaType.APPLICATION_JSON)
+
 public class StellarREST {
 
     private Logger logger = Logger.getLogger(StellarREST.class.getName());
@@ -23,22 +26,38 @@ public class StellarREST {
     @Inject
     private StellarDAO cDao;
 
-    // TODO HTTP GET method: return list of constellations
-    public Page<ConstellationDTO> getConstellations() {
+    @GET
+    public Page<ConstellationDTO> getConstellations(@QueryParam("query") String query) {
 
-        return null;
+        logger.info("fetching constellation list");
+        List<Constellation> constellations = cDao.getConstellations(query, -1, -1);
+        List<ConstellationDTO> dtos = ConstellationConverter.convertConstellationEntities(constellations);
+        logger.info(dtos.size() + " constellations found");
+        return new Page<>(dtos);
     }
 
     // TODO HTTP POST method: add constellation
-    public ConstellationDTO addConstellation(){
+    @POST
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes(MediaType.APPLICATION_JSON)
+    //public ConstellationDTO addConstellation(@FormParam("abbr") String abbr, @FormParam("name") String name) throws StellarException {
+   public ConstellationDTO addConstellation(ConstellationDTO dto) throws StellarException {
 
-        return null;
+        //logger.info("about to add constellation " + abbr + ", " + name);
+        Constellation c = cDao.addConstellation(dto.getAbbreviation(), dto.getName());
+        return ConstellationConverter.convertEntity(c);
     }
 
-    // TODO HTTP GET method: return list of stars for constellation
-    public List<StarDTO> getStars(){
+    @GET
+    @Path("{cid}/stars")
+    public List<StarDTO> getStars(@PathParam("cid") String cId){
 
-        return null;
+        logger.info("fetching stars for constellation " + cId);
+        List<Star> stars = cDao.getStars(cId);
+        List<StarDTO> dtos = ConstellationConverter.convertStarEntities(stars);
+
+        logger.info(dtos.size() + " stars founf for constellation " + cId);
+        return dtos;
     }
 
     // TODO HTTP POST method: add star for constellation

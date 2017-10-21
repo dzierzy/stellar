@@ -15,6 +15,10 @@ public class ConstellationDTO {
         this.name = name;
     }
 
+    public ConstellationDTO(){
+
+    }
+
     public String getAbbreviation() {
         return abbreviation;
     }

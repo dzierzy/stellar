@@ -19,14 +19,15 @@ public class InMemoryStellarDAO implements StellarDAO {
     Logger logger = Logger.getLogger(InMemoryStellarDAO.class.getName());
 
 
-    private List<Constellation> constellations = new ArrayList<>();
+    private static List<Constellation> constellations = new ArrayList<>();
 
     {
         init();
     }
 
-    private void init() {
+    private  void init() {
 
+        if(constellations.size()>0) return;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("constellations.csv")))) {
 
             String line;
