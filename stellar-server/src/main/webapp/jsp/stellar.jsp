@@ -35,6 +35,6 @@
             <% } %>
             </div>
         </section>
-        <footer>jsp</footer>
+
     </body>
 </html>
