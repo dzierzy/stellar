@@ -3,7 +3,7 @@ package pl.com.sages.stellar.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XmlRootElement
 public class ConstellationDTO {
 
     private String abbreviation;

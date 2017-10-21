@@ -27,6 +27,7 @@ public class StellarREST {
     private StellarDAO cDao;
 
     @GET
+    @Produces("application/*")
     public Page<ConstellationDTO> getConstellations(@QueryParam("query") String query) {
 
         logger.info("fetching constellation list");

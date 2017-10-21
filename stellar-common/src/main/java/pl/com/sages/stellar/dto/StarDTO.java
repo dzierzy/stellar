@@ -1,6 +1,8 @@
 package pl.com.sages.stellar.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class StarDTO {
 
     private String id;

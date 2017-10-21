@@ -1,9 +1,11 @@
 package pl.com.sages.stellar.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.List;
 
-
+@XmlRootElement
+@XmlSeeAlso({ConstellationDTO.class})
 public class Page<T> {
 
     private List<T> items;
