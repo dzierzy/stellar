@@ -10,8 +10,12 @@ import pl.com.sages.stellar.dto.Page;
 import pl.com.sages.stellar.dto.StarDTO;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -39,14 +43,21 @@ public class StellarREST {
 
     // TODO HTTP POST method: add constellation
     @POST
-    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Consumes(MediaType.APPLICATION_JSON)
-    //public ConstellationDTO addConstellation(@FormParam("abbr") String abbr, @FormParam("name") String name) throws StellarException {
-   public ConstellationDTO addConstellation(ConstellationDTO dto) throws StellarException {
+    public Response addConstellation(ConstellationDTO dto/*, @Context HttpServletResponse resp*/) throws StellarException {
 
         //logger.info("about to add constellation " + abbr + ", " + name);
         Constellation c = cDao.addConstellation(dto.getAbbreviation(), dto.getName());
-        return ConstellationConverter.convertEntity(c);
+
+        /*resp.setStatus(HttpServletResponse.SC_CREATED);
+        try {
+            resp.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        return Response.status(201).entity(ConstellationConverter.convertEntity(c)).build();
+        //return ConstellationConverter.convertEntity(c);
     }
 
     @GET

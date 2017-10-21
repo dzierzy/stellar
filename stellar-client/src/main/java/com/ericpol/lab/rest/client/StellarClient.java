@@ -1,6 +1,7 @@
 package com.ericpol.lab.rest.client;
 
 
+import pl.com.sages.stellar.dto.ConstellationDTO;
 import pl.com.sages.stellar.dto.Page;
 import pl.com.sages.stellar.utils.RestEasyUtils;
 
@@ -24,8 +25,11 @@ public class StellarClient {
         Config config = new Config();
         logger.info("configured to work with taget " + config.toURL(""));
 
+        Page<ConstellationDTO> page = ClientBuilder.newClient()
+                .target(config.toURL("/constellations"))
+                .request(MediaType.APPLICATION_JSON).get(Page.class);
 
-        return null;
+        return page;
     }
 
     // TODO connect via JAX-RS client to logo service and upload new logo png file
