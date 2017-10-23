@@ -42,6 +42,7 @@ public class FileREST {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadLogo(MultipartFormDataInput input, @Context ServletContext ctxt, @Context SecurityContext sctxt) throws IOException
     {
+        logger.info("about to receive uploaded file");
 
 
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();

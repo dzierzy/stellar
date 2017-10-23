@@ -38,7 +38,7 @@ public class StellarClient {
 
         GenericEntity entity = RestEasyUtils.multipartEntity(filePath);
 
-        Response response = ClientBuilder.newClient().target(config.toURL("/logo")).request().
+        Response response = ClientBuilder.newClient().register(new Authenticator("operator", "operator")).target(config.toURL("/logo")).request().
                 post( Entity.entity(entity, MediaType.MULTIPART_FORM_DATA_TYPE));
 
         return response;

@@ -14,6 +14,6 @@ public class StellarClientLauncher {
 
         String uploadedFilePath = "./stellar-client/src/main/resources/meteoryt.png"; // TODO align the path to png file which will be uploaded
         Response r = client.upload(uploadedFilePath);
-        System.out.println("uploaded file: " + uploadedFilePath + ". server response:" + r);
+        System.out.println("uploaded file: " + uploadedFilePath + ". server response:" + r.getStatus());
     }
 }
