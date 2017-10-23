@@ -13,42 +13,23 @@ public class RestEasyUtils {
     public static GenericEntity multipartEntity(String filePath) throws FileNotFoundException {
         MultipartFormDataOutput mdo = new MultipartFormDataOutput();
         mdo.addFormData("file", new FileInputStream(new File(filePath)), MediaType.APPLICATION_OCTET_STREAM_TYPE);
-        mdo.addFormData("fileName", new FileInputStream(new File(filePath)), MediaType.APPLICATION_OCTET_STREAM_TYPE);
-        GenericEntity<MultipartFormDataOutput> entity = new GenericEntity<MultipartFormDataOutput>(mdo) {
-        };
+        GenericEntity<MultipartFormDataOutput> entity = new GenericEntity<MultipartFormDataOutput>(mdo) {};
         return entity;
     }
 
 
-    public static String save(String folder, String fileName, InputPart inputPart) {
-        try {
-            InputStream inputStream = inputPart.getBody(InputStream.class, null);
-            String absolutefileName = folder + File.separator + fileName;
-            saveToFile(inputStream, absolutefileName);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return fileName;
-    }
+    public static void saveToFile(InputPart inputPart, File f) {
 
-    private static void saveToFile(InputStream uploadedInputStream,
-                            String uploadedFileLocation) {
+        int read = 0;
+        byte[] bytes = new byte[1024];
 
-        try {
-            OutputStream out = null;
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            File f = new File(uploadedFileLocation);
-            if(!f.exists()){
-                f.createNewFile();
-            }
-            out = new FileOutputStream(f);
-            while ((read = uploadedInputStream.read(bytes)) != -1) {
+        try(OutputStream out = new FileOutputStream(f);InputStream inputStream = inputPart.getBody(InputStream.class, null)) {
+
+            while ((read = inputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
-            out.flush();
-            out.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,7 +2,8 @@ package pl.com.sages.stellar.rest;
 
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import pl.com.sages.stellar.rest.utils.RestEasyUtils;
+import pl.com.sages.stellar.utils.RestEasyUtils;
+
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.*;
@@ -23,7 +24,6 @@ public class FileREST {
         return new File(ctxt.getRealPath("/img") + File.separator + fileName);
     }
 
-    // TODO HTTP GET serve logoFileName
     @GET
     @Produces("image/png")
     @Consumes("*/*")
@@ -31,16 +31,25 @@ public class FileREST {
 
         File f = getFile(ctxt, logoFileName);
 
-        return null;
+        Response.ResponseBuilder response = Response.ok(f);
+        response.header("Content-Disposition", "attachment; filename=\"test_text_file.txt\"");
+        return response.build();
+
     }
 
 
-    // TODO HTTP POST upload png and  logoFileName
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(MultipartFormDataInput input, @Context ServletContext ctxt, @Context SecurityContext sctxt) throws IOException
+    public Response uploadLogo(MultipartFormDataInput input, @Context ServletContext ctxt, @Context SecurityContext sctxt) throws IOException
     {
-        return null;
+
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+        List<InputPart> inputParts = uploadForm.get("file");
+        for (InputPart inputPart : inputParts){
+            RestEasyUtils.saveToFile( inputPart, getFile(ctxt, logoFileName));
+        }
+        return Response.status(200).entity("Uploaded "+ getFile(ctxt, logoFileName)).build();
     }
 
 

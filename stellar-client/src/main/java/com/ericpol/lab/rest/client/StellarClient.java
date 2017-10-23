@@ -9,6 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +20,6 @@ public class StellarClient {
 
     Logger logger = Logger.getLogger(StellarClient.class.getName());
 
-    // TODO connect via JAX-RS client to constellation service and fetch constellation list
     public Page getConstellations(int pageNo, int pageCount){
 
         Config config = new Config();
@@ -32,12 +32,16 @@ public class StellarClient {
         return page;
     }
 
-    // TODO connect via JAX-RS client to logo service and upload new logo png file
-    public Object upload(String filePath) throws FileNotFoundException {
+    public Response upload(String filePath) throws Exception {
 
         Config config = new Config();
 
-        return null;
+        GenericEntity entity = RestEasyUtils.multipartEntity(filePath);
+
+        Response response = ClientBuilder.newClient().target(config.toURL("/logo")).request().
+                post( Entity.entity(entity, MediaType.MULTIPART_FORM_DATA_TYPE));
+
+        return response;
     }
 
 
